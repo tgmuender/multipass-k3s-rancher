@@ -84,6 +84,7 @@ case $1 in
     "create")
         createVMs
         ./k3s.sh ${vmIds[@]}
+        updateHostsFile
         ;;
     "delete")
         removeVMs
