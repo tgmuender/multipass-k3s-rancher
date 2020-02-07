@@ -33,6 +33,9 @@ function setupWorkerNodes() {
 function downloadKubeConfig() {
     multipass exec ${MASTER_NODE_NAME} -- bash -c "sudo cat /etc/rancher/k3s/k3s.yaml" > k3s-sandbox.yaml
     sed -i 's/127.0.0.1/cluster-node-1/g' k3s-sandbox.yaml
+    kubectl config --kubeconfig ./k3s-sandbox.yaml rename-context default k3s-sandbox
+
+    cp ./k3s-sandbox.yaml ~/.kube/
 }
 
 echo "Number of nodes to provision: ${#NODES[@]}"
