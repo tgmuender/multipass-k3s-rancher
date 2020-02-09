@@ -66,14 +66,15 @@ function updateHostsFile() {
             do
                 echo "Found existing match for cluster-node-$i - updating entry"
 
-                sed -i "s/${line}/${nodeIP} cluster-node-${i}/" /etc/hosts
+                sudo sed -i "s/${line}/${nodeIP} cluster-node-${i}/" /etc/hosts
             done <<< "${matches}"
         fi
     done
 }
 
-declare -r nodeCount=4
+declare -r nodeCount=3
 declare -a vmIds=$(seq 1 ${nodeCount})
+declare -r SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 
 if [[ $# -ne 1 ]]
 then
@@ -94,6 +95,12 @@ case $1 in
         ;;
     "start")
         startVMs
+        ;;
+    "helm")
+        ${SCRIPT_DIR}/helm/setupHelm.sh
+        ;;
+    "rancher")
+        ${SCRIPT_DIR}/3-deploy-rancher-on-k3s.sh
         ;;
     *)
         showUsage
