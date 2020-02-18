@@ -10,7 +10,7 @@ declare -r K3S_URL="https://${MASTER_NODE_IP}:6443"
 
 function setupMasterNode() {
     # See https://rancher.com/docs/k3s/latest/en/installation/install-options/
-    multipass exec ${MASTER_NODE_NAME} -- /bin/bash -c "curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=\"server\" sh -"
+    multipass exec ${MASTER_NODE_NAME} -- /bin/bash -c "curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC=\"server --no-deploy traefik\" sh  -"
 }
 
 function getMasterToken() {

@@ -9,7 +9,7 @@ function createVM() {
 
     multipass launch \
         --name "cluster-node-${id}" \
-        --mem 2G \
+        --mem 6G \
         --cpus 4
 }
 
@@ -101,6 +101,9 @@ case $1 in
         ;;
     "rancher")
         ${SCRIPT_DIR}/3-deploy-rancher-on-k3s.sh
+        ;;
+    "istio")
+        ${SCRIPT_DIR}/istio/setupIstio.sh
         ;;
     *)
         showUsage
